@@ -20,8 +20,8 @@
 						<tr>
 							<th>Session</th>
 							<th>SR</th>
-							<th>Rolle</th>
-							<th>Teamgröße</th>
+							<th>Role</th>
+							<th>Team Size</th>
 							<th>W/L/D</th>
 							<th>Season</th>
 							<th></th>
@@ -81,8 +81,8 @@
 					<p id="sessionResult"></p>
 				</div>
 				<div id="stats">
-					<h2>letzten 10 Spiele</h2>
-					<span>Rolle</span>
+					<h2>Last 10 Games</h2>
+					<span>Role</span>
 					<select class="role" onchange="window.updateStats()">
 						<option value="All">All</option>
 						<option value="Tank">Tank</option>
@@ -114,7 +114,7 @@
 			</div>
 
 			<div class="footer">
-				<button onclick="window.addRow()">Neuer Eintrag</button>
+				<button onclick="window.addRow()">New entry</button>
 				<button id="btnExport" onclick="window.exportEntries()">Export</button>
 				<button id="btnImport" onclick="window.importEntries()">Import</button>
 				<input id="cbxDirtyState" type="checkbox"/>
