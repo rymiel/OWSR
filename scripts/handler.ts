@@ -1,7 +1,7 @@
 import { loadFromLocalStorage } from "./ItemManager.js";
 import { getDirtyState, initIgnoreDirtyState, setDirtyState } from "./DirtyState.js";
 import { initCharts, updateCharts } from "./GraphManager.js";
-import { updateStats, updateInfo, updateSeasonSelect } from "./InfoManager.js";
+import {updateStats, updateInfo, updateSeasonSelect, updateWLD} from "./InfoManager.js";
 import { addRow, rebuildTable } from "./TableManager.js";
 import { importEntries } from "./importData.js";
 import { exportEntries } from "./exportData.js";
@@ -31,6 +31,7 @@ export function init () {
         updateCharts();
         updateStats();
         updateInfo();
+        updateWLD();
     })
 
     window.updateStats = updateStats;

@@ -1,4 +1,5 @@
 import { COLORS } from "./Constants.js";
+import {getItems} from "./ItemManager.js";
 import { getEnhancedEntries, getCurrentSeason, getSeasonStats, getSessionStats, getCareerStats } from "./stats.js";
 
 export function updateSeasonSelect () {
@@ -45,7 +46,7 @@ export function updateInfo () {
 	});
 
 	const sessionResult = document.getElementById("sessionResult");
-	sessionResult.innerHTML = `<b>aktuelle Session:</b>&nbsp;&nbsp;${session.wld[0]}W / ${session.wld[1]}L / ${session.wld[2]}D&nbsp;&nbsp;&nbsp;&nbsp;(${session.sum})`;
+    sessionResult.innerHTML = `<b>This Session:</b>&nbsp;&nbsp;${session.wld[0]}W / ${session.wld[1]}L / ${session.wld[2]}D&nbsp;&nbsp;&nbsp;&nbsp;(${session.sum})`;
 }
 
 export function updateStats () {
@@ -90,4 +91,25 @@ export function updateStats () {
 		cSpan.style.top = "5px";
 		cSpan.style.backgroundColor = COLORS[entry.role];
 	});
+}
+
+export function updateWLD() {
+    const table = document.querySelector("#entries tbody");
+    const items = getItems();
+
+    table.querySelectorAll("tr").forEach((i) => {
+        const id = i.dataset.itemId;
+        const itemIndex = items.findIndex(item => {
+            return item.id === parseInt(id);
+        });
+        const item = items[itemIndex];
+        const prevSrFilter = items.filter((j) => j.role === item.role && j.id < item.id).slice(-1);
+        let gameResult = "*"; // default is "placement"
+        if (prevSrFilter.length === 1) {
+            const oldSr = prevSrFilter[0].sr;
+            const newSr = item.sr;
+            gameResult = newSr > oldSr ? "W" : (newSr < oldSr ? "L" : "D");
+        }
+        i.querySelector(".wld").textContent = `${gameResult}`;
+    });
 }

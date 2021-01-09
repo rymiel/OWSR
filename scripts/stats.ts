@@ -182,17 +182,17 @@ function getEntries (role: Role, season: string | number = "All") : Entry[] {
 		.map((item, index) => {
             const result = deepClone(item);
             result.sortId = index;
-            result.session = parseInt(item.session, 10);
-            result.sr = parseInt(item.sr, 10);
-            result.size = parseInt(item.size, 10);
-            result.season = parseInt(item.season, 10);
+            result.session = parseInt(item.session);
+            result.sr = parseInt(item.sr);
+            result.size = parseInt(item.size);
+            result.season = parseInt(item.season);
 			return result;
 		})
 		.filter(item => {
             if (role === null) {
                 return true;
             }
-			return item.role == role;
+            return item.role === role;
         })
         .filter(item => {
             return season === "All" ? true : item.season == season;

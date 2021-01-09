@@ -1,4 +1,6 @@
 import { getItems, setItems, saveItems, getLastUpdate } from "./ItemManager.js";
+import {ROLES} from "./Constants.js";
+import {updateWLD} from "./InfoManager.js";
 
 export function rebuildTable () {
     // clear table
@@ -20,10 +22,10 @@ export function addRow (item?) {
     const items = getItems();
 	if (!item) {
 		const lastItem: any = items[items.length - 1] || {};
-		let session = lastItem.session || "1"
+        let session = lastItem.session || "1";
 
 		const lastUpdate = getLastUpdate().getTime();
-		const current = new Date().getTime()
+        const current = new Date().getTime();
 		const diff = 1000 * 60 * 60 * 12;
 		if (current - lastUpdate > diff) {
 			session = parseInt(session , 10) + 1;
@@ -36,7 +38,7 @@ export function addRow (item?) {
 			role: lastItem.role || "Support",
 			size: lastItem.size || "2",
 			season: lastItem.season || "21",
-			wld: lastItem.wld || "default",
+            wld: "default",
 		};
 		items.push(item);
 		saveItems();
@@ -44,7 +46,7 @@ export function addRow (item?) {
 	const table = document.querySelector("#entries tbody");
 	const newRow = document.createElement("tr");
 	table.appendChild(newRow);
-	newRow.dataset.itemId = item.id
+    newRow.dataset.itemId = item.id;
 
 	const sessionCol = document.createElement("td");
 	newRow.appendChild(sessionCol);
@@ -79,6 +81,11 @@ export function addRow (item?) {
 	roleDropdown.value = item.role;
 	roleDropdown.addEventListener("change", saveRow);
 
+    const wldCol = document.createElement("td");
+    newRow.appendChild(wldCol);
+    wldCol.classList.add("wld");
+    wldCol.textContent = "...";
+
 	const sizeCol = document.createElement("td");
 	newRow.appendChild(sizeCol);
 	sizeCol.classList.add("size");
@@ -87,21 +94,6 @@ export function addRow (item?) {
 	sizeInput.setAttribute("type", "text");
 	sizeInput.value = item.size;
 	sizeInput.addEventListener("change", saveRow);
-
-	const wld = ["default", "Win", "Loss", "Draw"];
-	const wldCol = document.createElement("td");
-	newRow.appendChild(wldCol);
-	wldCol.classList.add("wld");
-	const wldDropdown = document.createElement("select");
-	wldCol.appendChild(wldDropdown);
-	wld.forEach(wld => {
-		const wldOption = document.createElement("option");
-		wldDropdown.appendChild(wldOption);
-		wldOption.innerText = wld;
-		wldOption.setAttribute("value", wld);
-	});
-	wldDropdown.value = item.wld;
-	wldDropdown.addEventListener("change", saveRow);
 
 	const seasonCol = document.createElement("td");
 	newRow.appendChild(seasonCol);
@@ -120,6 +112,7 @@ export function addRow (item?) {
 	deleteButton.addEventListener("click", deleteRow);
 
 	table.closest("div").scrollTop = table.closest("div").scrollHeight;
+    updateWLD();
 }
 
 function saveRow (oEvent) {
@@ -135,7 +128,7 @@ function saveRow (oEvent) {
 	item.role = row.querySelector(".role select").value;
 	item.size = row.querySelector(".size input").value;
 	item.season = row.querySelector(".season input").value;
-	item.wld = row.querySelector(".wld select").value;
+    item.wld = "default";
 	saveItems();
 }
 
