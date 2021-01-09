@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "outDir": "./built",
+      "allowJs": true,
+      "target": "es6",
+      "allowUmdGlobalAccess": true,
+      "moduleResolution": "node"
+    },
+    "include": ["./scripts/**/*"]
+  }
