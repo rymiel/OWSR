@@ -4,7 +4,13 @@
       "allowJs": true,
       "target": "esnext",
       "allowUmdGlobalAccess": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "lib": [
+        "es2018",
+        "dom"
+      ]
     },
-    "include": ["./scripts/**/*"]
+  "include": [
+    "./src/**/*"
+  ]
   }
