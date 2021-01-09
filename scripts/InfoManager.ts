@@ -1,6 +1,6 @@
-import { COLORS } from "./Constants.js";
-import {getItems} from "./ItemManager.js";
-import { getEnhancedEntries, getCurrentSeason, getSeasonStats, getSessionStats, getCareerStats } from "./stats.js";
+import {COLORS} from "./Constants";
+import {getItems} from "./ItemManager";
+import {getEnhancedEntries, getCurrentSeason, getSeasonStats, getSessionStats, getCareerStats} from "./stats";
 
 export function updateSeasonSelect () {
 	const container = document.querySelector<HTMLSelectElement>("select.season");

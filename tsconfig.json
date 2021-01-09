@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-      "outDir": "./built",
+      "outDir": "./public/scripts",
       "allowJs": true,
-      "target": "es6",
+      "target": "esnext",
       "allowUmdGlobalAccess": true,
       "moduleResolution": "node"
     },

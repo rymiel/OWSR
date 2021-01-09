@@ -1,5 +1,5 @@
-import { setDirtyState } from "./DirtyState.js";
-import { getItems } from "./ItemManager.js";
+import {setDirtyState} from "./DirtyState";
+import {getItems} from "./ItemManager";
 
 export function exportEntries () {
 	const text = JSON.stringify(getItems());

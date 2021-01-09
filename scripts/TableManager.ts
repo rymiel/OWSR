@@ -1,6 +1,6 @@
-import { getItems, setItems, saveItems, getLastUpdate } from "./ItemManager.js";
-import {ROLES} from "./Constants.js";
-import {updateWLD} from "./InfoManager.js";
+import {getItems, setItems, saveItems, getLastUpdate} from "./ItemManager";
+import {ROLES} from "./Constants";
+import {updateWLD} from "./InfoManager";
 
 export function rebuildTable () {
     // clear table

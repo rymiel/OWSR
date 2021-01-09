@@ -1,4 +1,4 @@
-import { setDirtyState } from "./DirtyState.js";
+import {setDirtyState} from "./DirtyState";
 
 var items: LocalStorageEntry[] = [];
 

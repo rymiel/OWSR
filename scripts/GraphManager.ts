@@ -1,8 +1,7 @@
-import { COLORS, ROLES } from "./Constants.js";
-import { getItems } from "./ItemManager.js";
-import { calcStats } from "./stats.js";
-import { Stats } from "./types.js";
-import { sort } from "./utils.js";
+import {COLORS, ROLES} from "./Constants";
+import {calcStats} from "./stats";
+import {Stats} from "./types";
+import {sort} from "./utils";
 
 const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: dark)');
 const PROGRESS_ENTRY_LENGTH = 20;

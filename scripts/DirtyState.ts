@@ -1,6 +1,6 @@
-var dirty: boolean = false;
-var ignore: boolean = null;
-var ignoreCheckbox: HTMLInputElement = null;
+let dirty: boolean = false;
+let ignore: boolean = null;
+let ignoreCheckbox: HTMLInputElement = null;
 
 export function initIgnoreDirtyState (elem: HTMLInputElement) {
     ignoreCheckbox = elem;

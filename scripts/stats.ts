@@ -1,7 +1,7 @@
-import { ROLES } from "./Constants.js";
-import { getItems } from "./ItemManager.js";
-import { Role, Entry, Stats } from "./types.js";
-import { deepClone } from "./utils.js";
+import {ROLES} from "./Constants";
+import {getItems} from "./ItemManager";
+import {Role, Entry, Stats} from "./types";
+import {deepClone} from "./utils";
 
 /**
  * Returns the numeric maximum value of a list

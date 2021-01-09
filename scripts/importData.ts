@@ -1,6 +1,6 @@
-import { setDirtyState } from "./DirtyState.js";
-import { LocalStorageEntry, setItems } from "./ItemManager.js";
-import { rebuildTable } from "./TableManager.js";
+import {setDirtyState} from "./DirtyState";
+import {LocalStorageEntry, setItems} from "./ItemManager";
+import {rebuildTable} from "./TableManager";
 
 let _fileHandler;
 
@@ -29,12 +29,12 @@ function _addLoadFile () {
 function _handleFileSelect (event) {
 	const file = event.target.files[0];
 	if (file) {
-		const fileName = file.name;
+		// const fileName = file.name;
 		const reader: any = new FileReader();
 		reader.onload = function () {
 			try {
 				const importedItems: LocalStorageEntry[] = JSON.parse(reader.result);
-				setItems(importedItems)
+				setItems(importedItems);
 				rebuildTable();
 				setDirtyState(false)
 			}

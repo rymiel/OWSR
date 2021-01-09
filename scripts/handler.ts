@@ -1,10 +1,10 @@
-import { loadFromLocalStorage } from "./ItemManager.js";
-import { getDirtyState, initIgnoreDirtyState, setDirtyState } from "./DirtyState.js";
-import { initCharts, updateCharts } from "./GraphManager.js";
-import {updateStats, updateInfo, updateSeasonSelect, updateWLD} from "./InfoManager.js";
-import { addRow, rebuildTable } from "./TableManager.js";
-import { importEntries } from "./importData.js";
-import { exportEntries } from "./exportData.js";
+import {loadFromLocalStorage} from "./ItemManager";
+import {getDirtyState, initIgnoreDirtyState, setDirtyState} from "./DirtyState";
+import {initCharts, updateCharts} from "./GraphManager";
+import {updateStats, updateInfo, updateSeasonSelect, updateWLD} from "./InfoManager";
+import {addRow, rebuildTable} from "./TableManager";
+import {importEntries} from "./importData";
+import {exportEntries} from "./exportData";
 
 declare const window: any;
 
@@ -20,7 +20,7 @@ export function init () {
 
     window.addEventListener("beforeunload", (event) => {
         if (getDirtyState()) {
-            var message = 'You may export the latest changes';
+            const message = 'You may export the latest changes';
             event.returnValue = message;
             return message;
         }
@@ -32,7 +32,7 @@ export function init () {
         updateStats();
         updateInfo();
         updateWLD();
-    })
+    });
 
     window.updateStats = updateStats;
     window.updateSeasonStats = () => {
@@ -47,7 +47,7 @@ export function init () {
         progressCharts.forEach(value => {
             const element = document.getElementById(value);
             element.style.display = "none";
-        })
+        });
 
         // Show correct chart
         const select = <HTMLSelectElement>document.getElementById("progressSelect");
