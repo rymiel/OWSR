@@ -194,12 +194,9 @@ export function updateCharts () {
 		const set = datasets[index];
 		const roleStats: Stats = stats[role];
 		set.data[0] = roleStats.gamesPlayed ? roleStats.winRate * 100 - 50 : 0;
-		set.data[1] = roleStats.gamesPlayedGroup[1] ? roleStats.winRateGroup[1] * 100 - 50 : 0;
-		set.data[2] = roleStats.gamesPlayedGroup[2] ? roleStats.winRateGroup[2] * 100 - 50 : 0;
-		set.data[3] = roleStats.gamesPlayedGroup[3] ? roleStats.winRateGroup[3] * 100 - 50 : 0;
-		set.data[4] = roleStats.gamesPlayedGroup[4] ? roleStats.winRateGroup[4] * 100 - 50 : 0;
-		set.data[5] = roleStats.gamesPlayedGroup[5] ? roleStats.winRateGroup[5] * 100 - 50 : 0;
-		set.data[6] = roleStats.gamesPlayedGroup[6] ? roleStats.winRateGroup[6] * 100 - 50 : 0;
+        for (let i = 1; i < 6; i++) {
+            set.data[i] = roleStats.gamesPlayedGroup[i] ? roleStats.winRateGroup[i] * 100 - 50 : 0;
+        }
 	});
 	WinRateChart.update()
 
@@ -208,12 +205,9 @@ export function updateCharts () {
 		const set = datasets[index];
 		const roleStats: Stats = stats[role];
 		set.data[0] = roleStats.gamesPlayed;
-		set.data[1] = roleStats.gamesPlayedGroup[1];
-		set.data[2] = roleStats.gamesPlayedGroup[2];
-		set.data[3] = roleStats.gamesPlayedGroup[3];
-		set.data[4] = roleStats.gamesPlayedGroup[4];
-		set.data[5] = roleStats.gamesPlayedGroup[5];
-		set.data[6] = roleStats.gamesPlayedGroup[6];
+        for (let i = 1; i < 6; i++) {
+            set.data[i] = roleStats.gamesPlayedGroup[i];
+        }
 	});
 	GamesChart.update();
 

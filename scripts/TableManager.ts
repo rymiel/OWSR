@@ -8,7 +8,6 @@ export function rebuildTable () {
 	document.querySelector("#entries tbody").innerHTML = "";
 
 	if (!items) {
-		items = [];
 		addRow();
 	} else {
 		items.forEach(item => {

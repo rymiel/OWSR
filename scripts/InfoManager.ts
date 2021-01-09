@@ -70,16 +70,6 @@ export function updateStats () {
 		table.appendChild(row);
 		const dSpan = document.createElement("span");
 		row.appendChild(dSpan);
-		dSpan.innerText = entry.diff.toFixed(0);
-		dSpan.style.width = "30px";
-		dSpan.style.display = "inline-block";
-		dSpan.style.textAlign = "right";
-		const rSpan = document.createElement("span");
-		row.appendChild(rSpan);
-		rSpan.innerText = entry.role;
-		rSpan.style.width = "70px";
-		rSpan.style.display = "inline-block";
-		rSpan.style.marginLeft = "5px";
 		const cSpan = document.createElement("span");
 		row.appendChild(cSpan);
 		cSpan.style.width = "20px";
@@ -90,6 +80,16 @@ export function updateStats () {
 		cSpan.style.position = "relative";
 		cSpan.style.top = "5px";
 		cSpan.style.backgroundColor = COLORS[entry.role];
+        dSpan.innerText = entry.diff.toFixed(0);
+        // dSpan.style.width = "30px";
+        dSpan.style.display = "inline-block";
+        dSpan.style.textAlign = "right";
+        const rSpan = document.createElement("span");
+        row.appendChild(rSpan);
+        rSpan.innerText = entry.role;
+        // rSpan.style.width = "70px";
+        rSpan.style.display = "inline-block";
+        rSpan.style.marginLeft = "5px";
 	});
 }
 
