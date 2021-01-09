@@ -28,10 +28,8 @@ jobs:
       - name: Dependencies
         run: npm install
 
-      - name: Typescript compiler
-        uses: iCrawl/action-tsc@v1
-        with:
-          build: .
+      - name: Build and pack
+        run: npm build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
