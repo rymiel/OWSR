@@ -30,6 +30,8 @@ jobs:
 
       - name: Typescript compiler
         uses: iCrawl/action-tsc@v1
+        with:
+          build: .
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
