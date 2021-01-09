@@ -66,13 +66,12 @@ export function addRow (item?) {
 	srInput.value = item.sr;
 	srInput.addEventListener("change", saveRow);
 
-	const roles = ["Tank", "DPS", "Support"];
 	const roleCol = document.createElement("td");
 	newRow.appendChild(roleCol);
 	roleCol.classList.add("role");
 	const roleDropdown = document.createElement("select");
 	roleCol.appendChild(roleDropdown);
-	roles.forEach(role => {
+    ROLES.forEach(role => {
 		const roleOption = document.createElement("option");
 		roleDropdown.appendChild(roleOption);
 		roleOption.innerText = role;

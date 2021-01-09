@@ -1,4 +1,4 @@
-export type Role = "Support" | "Tank" | "DPS";
+export type Role = "Support" | "Tank" | "DPS" | "Open";
 export type Teamsize = 1 | 2 | 3 | 4 | 5 | 6;
 export type WLD = "Win" | "Loss" | "Draw";
 
@@ -13,7 +13,7 @@ export interface Entry {
     season: string,
     wasDefault: boolean,
     wld: WLD
-};
+}
 
 export interface GroupStatEntry {
     1: number,
