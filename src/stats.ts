@@ -245,7 +245,7 @@ function getEntries(role: Role, season: string | number = "All"): Entry[] {
   filteredEntries.forEach((entry, i) => {
     const lastEntry = filteredEntries[i - 1];
     const lastEntrySr = (lastEntry && lastEntry.sr) || 0;
-    if (entry.wld == "default") {
+    if (i > 0) {
       entry.wasDefault = true;
       if (entry.sr > lastEntrySr) {
         entry.wld = "Win";
