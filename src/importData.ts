@@ -1,48 +1,47 @@
-import {setDirtyState} from "./DirtyState";
-import {LocalStorageEntry, setItems} from "./ItemManager";
-import {rebuildTable} from "./TableManager";
+import { setDirtyState } from "./DirtyState";
+import { LocalStorageEntry, setItems } from "./ItemManager";
+import { rebuildTable } from "./TableManager";
 
 let _fileHandler;
 
 window.addEventListener("load", () => {
-	_fileHandler = _addLoadFile();
+  _fileHandler = _addLoadFile();
 });
 
-export function importEntries () {
-	_fileHandler.value = "";
-	_fileHandler.click();
+export function importEntries() {
+  _fileHandler.value = "";
+  _fileHandler.click();
 }
 
-function _addLoadFile () {
-	const _fileHandler = document.createElement("input");
-	_fileHandler.setAttribute('id', "FileHandler");
-	_fileHandler.setAttribute('type', 'file');
-	_fileHandler.setAttribute('accept', '.txt');
-	_fileHandler.setAttribute('multiple', "false");
-	document.getElementById("hidden").appendChild(_fileHandler);
+function _addLoadFile() {
+  const _fileHandler = document.createElement("input");
+  _fileHandler.setAttribute("id", "FileHandler");
+  _fileHandler.setAttribute("type", "file");
+  _fileHandler.setAttribute("accept", ".txt");
+  _fileHandler.setAttribute("multiple", "false");
+  document.getElementById("hidden").appendChild(_fileHandler);
 
-	_fileHandler.onchange = _handleFileSelect.bind(this);
+  _fileHandler.onchange = _handleFileSelect.bind(this);
 
-	return _fileHandler
+  return _fileHandler;
 }
 
-function _handleFileSelect (event) {
-	const file = event.target.files[0];
-	if (file) {
-		// const fileName = file.name;
-		const reader: any = new FileReader();
-		reader.onload = function () {
-			try {
-				const importedItems: LocalStorageEntry[] = JSON.parse(reader.result);
-				setItems(importedItems);
-				rebuildTable();
-				setDirtyState(false)
-			}
-			catch (error){
-				console.log(error)
-				// err handling
-			}
-		};
-		reader.readAsText(file);
-	}
+function _handleFileSelect(event) {
+  const file = event.target.files[0];
+  if (file) {
+    // const fileName = file.name;
+    const reader: any = new FileReader();
+    reader.onload = function () {
+      try {
+        const importedItems: LocalStorageEntry[] = JSON.parse(reader.result);
+        setItems(importedItems);
+        rebuildTable();
+        setDirtyState(false);
+      } catch (error) {
+        console.log(error);
+        // err handling
+      }
+    };
+    reader.readAsText(file);
+  }
 }

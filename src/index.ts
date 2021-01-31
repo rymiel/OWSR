@@ -1,3 +1,3 @@
-import {init} from "./handler";
+import { init } from "./handler";
 
 init();
