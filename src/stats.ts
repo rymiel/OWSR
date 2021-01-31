@@ -63,6 +63,20 @@ function firstGreaterThan(
   );
 }
 
+function lastSmallerThan(
+  list: object[],
+  property: string,
+  max: number
+): number {
+  return list.reduce((acc, entry) => {
+    if (entry[property] < max) {
+      return entry[property];
+    } else {
+      return acc;
+    }
+  }, max);
+}
+
 /**
  * Returns the last numeric value of value that is greater than a threshold
  * @param list list of objects
@@ -381,13 +395,15 @@ export function calcStats(role: Role, season: string | number = "All"): Stats {
       6: null,
     },
     // Session
-    sessionStart:
-      findInList(
-        entries,
-        "sr",
-        "id",
-        firstGreaterThan(sessionEntries, "id", 0) - 1
-      ) || 0,
+    sessionStart: (() => {
+      const firstSessionId = firstGreaterThan(sessionEntries, "id", 0);
+      if (firstSessionId) {
+        const startId = lastSmallerThan(entries, "id", firstSessionId);
+        return findInList(entries, "sr", "id", startId) || 0;
+      } else {
+        return 0;
+      }
+    })(),
     sessionCurrent: lastGreaterThan(sessionEntries, "sr", 0),
     sessionWin: countIf(sessionEntries, [["wld", "Win"]]),
     sessionLoss: countIf(sessionEntries, [["wld", "Loss"]]),
@@ -450,7 +466,9 @@ export function getSessionStats() {
     sessionStats.start[index] = roleStats.sessionStart;
     sessionStats.current[index] = roleStats.sessionCurrent;
     sessionStats.gain[index] =
-      roleStats.sessionCurrent - roleStats.sessionStart;
+      roleStats.sessionStart > 0
+        ? roleStats.sessionCurrent - roleStats.sessionStart
+        : 0;
     sessionStats.sum += sessionStats.gain[index];
     sessionStats.wld[0] += roleStats.sessionWin;
     sessionStats.wld[1] += roleStats.sessionLoss;
