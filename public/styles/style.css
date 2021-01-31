@@ -1,104 +1,105 @@
 :root {
-    --background: #e4e4e4;
-    --color: #444;
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-		--background: #444;
-		--color: #e4e4e4;
-    }
+  --background: #333;
+  --color: #eee;
 }
 
 .left {
-	float: left;
-	width: 30%;
-	height: 90vh;
-	overflow: auto;
+  float: left;
+  width: 30%;
+  height: 90vh;
+  overflow: auto;
 }
 
 body {
-	overflow: hidden;
-	clear:both;
-	background-color: var(--background);
-	color: var(--color);
-	font-family: Roboto, sans-serif;
+  clear: both;
+  background-color: var(--background);
+  color: var(--color);
+  font-family: Roboto, sans-serif;
 }
 
 th {
-	position: sticky;
-	top: 0;
-	background: var(--background);
+  background: var(--background);
 }
 
-td.session, td.session * {
-	width: 50px;
-	text-align: center;
+#entries td *,
+#entries td {
+  text-align: center;
+  width: auto;
 }
 
-td.sr, td.sr * {
-	width: 80px;
-	text-align: center;
+#entries td.session input {
+  width: 5.5em;
 }
 
-td.size, td.size * {
-	width: 50px;
-	text-align: center;
+#entries td.sr input {
+  width: 4em;
 }
 
-td.season, td.season * {
-	width: 50px;
-	text-align: center;
+#entries td.size input {
+  width: 6.5em;
 }
 
-#stats, #stats .table, #info {
-	margin-left: 50px;
-    margin-top: 20px;
+#entries td.season input {
+  width: 5em;
+}
+
+#stats,
+#stats .table,
+#info {
+  margin-left: 50px;
+  margin-top: 20px;
 }
 
 #info {
-	font-size: small;
+  font-size: small;
 }
 
 #sessionResult {
-	font-size: medium;
+  font-size: medium;
 }
 
-.midTable {
-	border-collapse: collapse;
+table {
+  border-collapse: collapse;
+}
+
+table,
+table td,
+table th {
+  border: 1px white solid;
 }
 
 .midTable th {
-	padding: 0.5em;
+  padding: 0.5em;
 }
 
 .border {
-	height: 0.5em;
-	width: 100%;
-	background-color: var(--color);
+  height: 0.5em;
+  width: 100%;
+  background-color: var(--color);
 }
 
 .midTable td {
-	padding: 0.5em;
-	text-align: center;
+  padding: 0.5em;
+  text-align: center;
 }
 
-input, select {
-	background-color: var(--background);
-	color: var(--color);
-	border-color: var(--color);
-	border-style: ridge;
-	border-width: 1px;
+td input,
+td select,
+td button {
+  background-color: var(--background-color);
+  color: var(--color);
+  border-style: hidden;
 }
 
-button {
-	background-color: var(--background);
-	color: var(--color);
+td button {
+  background-color: red;
 }
 
 svg {
-	padding: 2em;
+  padding: 2em;
 }
 
-#hidden, .hidden {
-	display: none;
+#hidden,
+.hidden {
+  display: none;
 }

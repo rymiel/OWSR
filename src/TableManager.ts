@@ -36,7 +36,7 @@ export function addRow(item?) {
       sr: lastItem.sr || "2000",
       role: lastItem.role || "Support",
       size: lastItem.size || "2",
-      season: lastItem.season || "21",
+      season: lastItem.season || "26",
       wld: "default",
     };
     items.push(item);
