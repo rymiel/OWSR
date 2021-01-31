@@ -221,6 +221,10 @@ function largestGroup(list: object[], property: string, value: any): number {
   );
 }
 
+function roleStatArray(emptyValue = 0) {
+  return Array(ROLES.length).fill(emptyValue);
+}
+
 function getEntries(role: Role, season: string | number = "All"): Entry[] {
   const filteredEntries = getItems()
     .map((item, index) => {
@@ -454,10 +458,10 @@ export function getEnhancedEntries(): Entry[] {
 
 export function getSessionStats() {
   const sessionStats = {
-    start: [0, 0, 0],
-    current: [0, 0, 0],
-    gain: [0, 0, 0],
-    wld: [0, 0, 0],
+    start: roleStatArray(),
+    current: roleStatArray(),
+    gain: roleStatArray(),
+    wld: roleStatArray(),
     sum: 0,
   };
   ROLES.forEach((role, index) => {
@@ -480,8 +484,8 @@ export function getSessionStats() {
 
 export function getCareerStats() {
   const result = {
-    high: [0, 0, 0],
-    low: [0, 0, 0],
+    high: roleStatArray(),
+    low: roleStatArray(),
   };
   ROLES.forEach((role, index) => {
     const roleStats = calcStats(role);
@@ -494,11 +498,11 @@ export function getCareerStats() {
 export function getSeasonStats() {
   const season = getCurrentSeason();
   const seasonStats: any = {
-    srGain: [0, 0, 0],
-    srLoss: [0, 0, 0],
-    srWin: [0, 0, 0],
-    high: [0, 0, 0],
-    low: [0, 0, 0],
+    srGain: roleStatArray(),
+    srLoss: roleStatArray(),
+    srWin: roleStatArray(),
+    high: roleStatArray(),
+    low: roleStatArray(),
   };
   ROLES.forEach((role, index) => {
     const roleStats = calcStats(role, season);
