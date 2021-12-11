@@ -23,7 +23,7 @@ export default class Graphs extends Component<GraphsProps, Record<string, never>
     });
 
     return <>
-      <div style={{position: 'relative', width: '100%', paddingBottom: '30%'}}>
+      <div style={{position: 'relative', width: '100%', paddingBottom: '40vh'}}>
         <div className="graph-container">
           <ResponsiveContainer>
             <LineChart>
