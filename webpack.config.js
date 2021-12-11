@@ -21,7 +21,7 @@ const config = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public', 'dist'),
-    publicPath: '/dist/'
+    publicPath: 'dist/'
   },
   plugins: [
       new HtmlWebpackPlugin({
