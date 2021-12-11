@@ -11,9 +11,9 @@ export function CtxWLD(p: {value: number | string, style?: React.CSSProperties})
 
 export function RankIcon(p: {sr: number}) {
   const highestMatchingRank = RANK_THRESHOLDS.filter((i) => p.sr >= i[0]).reduce((prev, curr) => prev[0] > curr[0] ? prev : curr);
-  return <img src={`/assets/rank-${highestMatchingRank[1]}Tier.png`} style={{height: "30px"}} />;
+  return <img src={`assets/rank-${highestMatchingRank[1]}Tier.png`} style={{height: "30px"}} />;
 }
 
 export function RoleIcon(p: {role: Role}) {
-  return <img src={`/assets/role-${p.role}.png`} style={{height: "22px", marginLeft: "auto"}} />;
+  return <img src={`assets/role-${p.role}.png`} style={{height: "22px", marginLeft: "auto"}} />;
 }
