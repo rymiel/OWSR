@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./public/scripts",
+    "outDir": "./public/dist/",
+    "sourceMap": true,
+    "module": "esnext",
+    "target": "es2015",
     "allowJs": true,
-    "target": "esnext",
-    "allowUmdGlobalAccess": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "lib": ["es2018", "dom"]
   },

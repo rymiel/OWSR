@@ -17,35 +17,38 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-th {
-  background: var(--background);
+.bp3-input {
+  font-family: monospace;
 }
 
-#entries td *,
+.flex-input .bp3-input-group {
+  display: inline-flex;
+  flex: 1;
+}
+
+.flex-input .bp3-input-group input {
+  flex: 1;
+}
+
 #entries td {
-  text-align: center;
-  width: auto;
+  padding: 6px 11px;
 }
 
-#entries td.session input {
-  width: 5.5em;
+#stats .table table {
+  margin-top: 20px;
+  border: none;
+  font-size: 18px;
+  vertical-align: middle;
 }
 
-#entries td.sr input {
-  width: 4em;
+#stats .table table td {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 7px;
 }
 
-#entries td.size input {
-  width: 6.5em;
-}
-
-#entries td.season input {
-  width: 5em;
-}
-
-#stats,
-#stats .table,
-#info {
+#stats, #info {
   margin-left: 50px;
   margin-top: 20px;
 }
@@ -83,23 +86,15 @@ table th {
   text-align: center;
 }
 
-td input,
-td select,
-td button {
-  background-color: var(--background-color);
-  color: var(--color);
-  border-style: hidden;
-}
-
-td button {
-  background-color: red;
-}
-
-svg {
-  padding: 2em;
-}
-
 #hidden,
 .hidden {
   display: none;
+}
+
+.graph-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 }

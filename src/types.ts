@@ -1,19 +1,36 @@
-export type Role = "Support" | "Tank" | "DPS" | "Open";
+export const ROLES = ["Support", "Tank", "DPS", "Open"] as const;
+export type Role = typeof ROLES[number];
 export type Teamsize = 1 | 2 | 3 | 4 | 5 | 6;
 export type WLD = "Win" | "Loss" | "Draw";
+type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+export const RANK_THRESHOLDS = [
+  [0, "Bronze"],
+  [1500, "Silver"],
+  [2000, "Gold"],
+  [2500, "Platinum"],
+  [3000, "Diamond"],
+  [3500, "Master"],
+  [4000, "Grandmaster"],
+] as const;
+export type Rank = ArrayElement<typeof RANK_THRESHOLDS>[1];
+
+export const COLORS = {
+  Tank: "#b43c4a",
+  DPS: "#59c8ff",
+  Support: "#6ad330",
+  Open: "#b83cff",
+};
 
 export interface Entry {
   id: number;
-  sortId: number;
   session: number;
   sr: number;
-  diff: number;
   role: Role;
-  size: Teamsize;
-  season: string;
-  wasDefault: boolean;
-  wld: WLD;
+  size: number;
+  season: number;
+  wld: string;
 }
+export type EntryDiff = {entry: Entry, diff: number};
 
 export interface GroupStatEntry {
   1: number;

@@ -1,21 +1,49 @@
-const path = require("path");
+/* eslint-disable */
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
-module.exports = {
-  entry: "./src/index.ts",
+const config = {
+  entry: path.join(__dirname, 'src', 'index.tsx'),
+  target: 'web',
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: "ts-loader",
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-      },
+      }
     ],
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "public"),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'public', 'dist'),
+    publicPath: '/dist/'
   },
+  plugins: [
+      new HtmlWebpackPlugin({
+          template: path.join(__dirname, 'src', 'index.html'),
+          filename: path.join(__dirname, 'public', 'index.html')
+      })
+  ]
 };
+
+module.exports = (env, argv) => {
+  if (argv.mode === "development") {
+    config.devtool = 'inline-source-map';
+    config.devServer = {
+      static: './public',
+      hot: true,
+    }
+  } else if (argv.mode === "production") {
+    config.optimization = {
+      splitChunks: {
+        chunks: 'all',
+      }
+    }
+  }
+  return config;
+}
