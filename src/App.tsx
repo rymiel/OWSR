@@ -1,4 +1,4 @@
-import { Button, Intent } from "@blueprintjs/core";
+import { Button, Classes, Dialog, Intent } from "@blueprintjs/core";
 import { ChangeEvent, Component } from "react";
 import EntryTable from "./EntryTable";
 import Graphs from "./Graphs";
@@ -11,6 +11,7 @@ interface AppState {
   entries: Entry[];
   lastStats: EntryDiff[];
   roleFilter: string;
+  overlay: boolean;
 }
 
 export default class App extends Component<Record<string, never>, AppState> {
@@ -21,7 +22,8 @@ export default class App extends Component<Record<string, never>, AppState> {
     this.state = {
       entries,
       roleFilter: "All",
-      lastStats: this.updateStats(entries, "All")
+      lastStats: this.updateStats(entries, "All"),
+      overlay: false
     };
   }
 
@@ -66,11 +68,11 @@ export default class App extends Component<Record<string, never>, AppState> {
 
   updateWLD(entries: Entry[]): Entry[] {
     return this.entryDiffs(entries).map(i => {
-      let gameResult = "*";
-      if (isNaN(i.diff)) { gameResult = "*"; }
-      else if (i.diff > 0) { gameResult = "W"; }
-      else if (i.diff < 0) { gameResult = "L"; }
-      else if (i.diff == 0) { gameResult = "D"; }
+      let gameResult: string;
+      if (isNaN(i.diff)) gameResult = "*";
+      else if (i.diff > 0) gameResult = "W";
+      else if (i.diff < 0) gameResult = "L";
+      else if (i.diff == 0) gameResult = "D";
       return gameResult != i.entry.wld ? {...i.entry, wld: gameResult} : i.entry;
     });
   }
@@ -120,6 +122,10 @@ export default class App extends Component<Record<string, never>, AppState> {
     return this.entryDiffs(entries).splice(entries.length - count, count);
   }
 
+  toggleOverlay = () => {
+    this.setState(s => ({overlay: !s.overlay}));
+  }
+
   importFromFile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files[0];
     if (file) {
@@ -127,6 +133,7 @@ export default class App extends Component<Record<string, never>, AppState> {
       reader.onload = () => {
         try {
           const importedItems  = loadFromString(reader.result as string);
+          this.applyEntries(() => []);
           this.applyEntries(() => importedItems);
         } catch (error) {
           console.log(error);
@@ -149,6 +156,16 @@ export default class App extends Component<Record<string, never>, AppState> {
         <Button onClick={() => this.addRow()} intent={Intent.SUCCESS}>New entry</Button>
         <Button onClick={() => document.getElementById("importUpload").click()} intent={Intent.PRIMARY}>Import</Button>
         <Button onClick={() => download(JSON.stringify(this.state.entries), "entries.json", "application/json")} intent={Intent.PRIMARY}>Export</Button>
+        <div>
+          <Button text="Show overlay" onClick={this.toggleOverlay} />
+          <Dialog isOpen={this.state.overlay} onClose={this.toggleOverlay}>
+            <div className={Classes.DIALOG_BODY}>
+              <p>
+                Overlaid contents...
+              </p>
+            </div>
+          </Dialog>
+        </div>
       </div>
       <div className="mainMid">
         <LastStats lastStats={this.state.lastStats} updateStats={this.onStatRoleChange} />

@@ -14,7 +14,7 @@ function migrateEntries(legacy: LegacyEntry[]): Entry[] {
   return legacy.map(i => ({
     id: i.id,
     session: parseInt(i.session.toString()),
-    sr: parseInt(i.sr.toString()),
+    sr: parseInt((i.sr ?? 0).toString()),
     role: i.role as Role,
     size: parseInt(i.size.toString()),
     season: parseInt(i.season.toString()),
