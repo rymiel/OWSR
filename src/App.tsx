@@ -4,8 +4,8 @@ import EntryTable from "./EntryTable";
 import Graphs from "./Graphs";
 import LastStats from "./LastStats";
 import { getLastUpdate, loadFromLocalStorage, loadFromString, saveItems } from "./localStorage";
-import { Entry, EntryDiff, WLD } from "./types";
-import { download } from "./utils";
+import { DEFAULT_ENTRY, Entry, EntryDiff, WLD } from "./types";
+import { download, last } from "./utils";
 
 interface AppState {
   entries: Entry[];
@@ -79,32 +79,18 @@ export default class App extends Component<Record<string, never>, AppState> {
 
   addRow() {
     const items = this.state.entries;
-    const lastItem: Entry | Record<string, never> = items[items.length - 1] || {};
-    let session = lastItem.session || 1;
+    const lastItem = last(items, DEFAULT_ENTRY);
 
     const lastUpdate = getLastUpdate().getTime();
     const current = new Date().getTime();
     const diff = 1000 * 60 * 60 * 12;
-    if (current - lastUpdate > diff) {
-      session = session + 1;
-    }
+    const item = {...lastItem, id: lastItem.id + 1};
+    if (current - lastUpdate > diff) item.session += 1;
 
-    const item = {
-      id: lastItem.id + 1 || 1,
-      session: session,
-      sr: lastItem.sr || 2000,
-      role: lastItem.role || "Support",
-      size: lastItem.size || 2,
-      season: lastItem.season || 26,
-      wld: "*",
-    } as const;
     this.addItem(item);
     saveItems(items);
 
-    // newRow.dataset.itemId = item.id.toString();
-
     // table.closest("div").scrollTop = table.closest("div").scrollHeight;
-    // // updateWLD();
   }
 
   onStatRoleChange = (event: ChangeEvent<HTMLSelectElement>) => {

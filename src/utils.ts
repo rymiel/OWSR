@@ -5,3 +5,7 @@ export function download(content: string, fileName: string, contentType: string)
   a.download = fileName;
   a.click();
 }
+
+export function last<T, U>(arr: T[], def: U): T | U {
+  return arr[arr.length - 1] || def;
+}

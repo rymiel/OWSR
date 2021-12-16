@@ -32,7 +32,7 @@ export interface Entry {
 }
 export type EntryDiff = {entry: Entry, diff: number};
 export const DEFAULT_ENTRY: Entry = {
-  id: 1,
+  id: 0,
   session: 1,
   sr: 2000,
   role: "Support",
