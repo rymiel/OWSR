@@ -4,7 +4,7 @@ import EntryTable from "./EntryTable";
 import Graphs from "./Graphs";
 import LastStats from "./LastStats";
 import { getLastUpdate, loadFromLocalStorage, loadFromString, saveItems } from "./localStorage";
-import { Entry, EntryDiff } from "./types";
+import { Entry, EntryDiff, WLD } from "./types";
 import { download } from "./utils";
 
 interface AppState {
@@ -18,7 +18,7 @@ export default class App extends Component<Record<string, never>, AppState> {
   constructor(props: Record<string, never>) {
     super(props);
 
-    const entries = loadFromLocalStorage();
+    const entries = this.updateWLD(loadFromLocalStorage());
     this.state = {
       entries,
       roleFilter: "All",
@@ -68,7 +68,7 @@ export default class App extends Component<Record<string, never>, AppState> {
 
   updateWLD(entries: Entry[]): Entry[] {
     return this.entryDiffs(entries).map(i => {
-      let gameResult: string;
+      let gameResult: WLD;
       if (isNaN(i.diff)) gameResult = "*";
       else if (i.diff > 0) gameResult = "W";
       else if (i.diff < 0) gameResult = "L";
@@ -79,7 +79,7 @@ export default class App extends Component<Record<string, never>, AppState> {
 
   addRow() {
     const items = this.state.entries;
-    const lastItem: Partial<Entry> = items[items.length - 1] || {};
+    const lastItem: Entry | Record<string, never> = items[items.length - 1] || {};
     let session = lastItem.session || 1;
 
     const lastUpdate = getLastUpdate().getTime();
@@ -96,8 +96,8 @@ export default class App extends Component<Record<string, never>, AppState> {
       role: lastItem.role || "Support",
       size: lastItem.size || 2,
       season: lastItem.season || 26,
-      wld: "default",
-    };
+      wld: "*",
+    } as const;
     this.addItem(item);
     saveItems(items);
 

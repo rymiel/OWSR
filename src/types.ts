@@ -1,7 +1,7 @@
 export const ROLES = ["Support", "Tank", "DPS", "Open"] as const;
 export type Role = typeof ROLES[number];
 export type Teamsize = 1 | 2 | 3 | 4 | 5 | 6;
-export type WLD = "Win" | "Loss" | "Draw";
+export type WLD = "W" | "L" | "D" | "*";
 type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
 export const RANK_THRESHOLDS = [
   [0, "Bronze"],
@@ -28,9 +28,18 @@ export interface Entry {
   role: Role;
   size: number;
   season: number;
-  wld: string;
+  wld: WLD;
 }
 export type EntryDiff = {entry: Entry, diff: number};
+export const DEFAULT_ENTRY: Entry = {
+  id: 1,
+  session: 1,
+  sr: 2000,
+  role: "Support",
+  size: 2,
+  season: 26,
+  wld: "*",
+};
 
 export interface GroupStatEntry {
   1: number;

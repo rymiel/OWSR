@@ -18,7 +18,7 @@ function migrateEntries(legacy: LegacyEntry[]): Entry[] {
     role: i.role as Role,
     size: parseInt(i.size.toString()),
     season: parseInt(i.season.toString()),
-    wld: i.wld
+    wld: "*"
   }));
 }
 
