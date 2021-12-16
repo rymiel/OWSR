@@ -69,10 +69,10 @@ export default class App extends Component<Record<string, never>, AppState> {
   updateWLD(entries: Entry[]): Entry[] {
     return this.entryDiffs(entries).map(i => {
       let gameResult: WLD;
-      if (isNaN(i.diff)) gameResult = "*";
-      else if (i.diff > 0) gameResult = "W";
+      if (i.diff > 0) gameResult = "W";
       else if (i.diff < 0) gameResult = "L";
       else if (i.diff == 0) gameResult = "D";
+      else gameResult = "*";
       return gameResult != i.entry.wld ? {...i.entry, wld: gameResult} : i.entry;
     });
   }
@@ -113,7 +113,9 @@ export default class App extends Component<Record<string, never>, AppState> {
   }
 
   importFromFile = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
+    const files = event.target.files;
+    if (files === null) return;
+    const file = files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -140,7 +142,7 @@ export default class App extends Component<Record<string, never>, AppState> {
       </div>
       <div className="footer">
         <Button onClick={() => this.addRow()} intent={Intent.SUCCESS}>New entry</Button>
-        <Button onClick={() => document.getElementById("importUpload").click()} intent={Intent.PRIMARY}>Import</Button>
+        <Button onClick={() => document.getElementById("importUpload")!.click()} intent={Intent.PRIMARY}>Import</Button>
         <Button onClick={() => download(JSON.stringify(this.state.entries), "entries.json", "application/json")} intent={Intent.PRIMARY}>Export</Button>
         <div>
           <Button text="Show overlay" onClick={this.toggleOverlay} />

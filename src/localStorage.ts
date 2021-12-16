@@ -27,7 +27,7 @@ export function loadFromString(input: string): Entry[] {
 }
 
 export function loadFromLocalStorage(): Entry[] {
-  return migrateEntries(JSON.parse(localStorage.getItem("items")) || []);
+  return migrateEntries(JSON.parse(localStorage.getItem("items") ?? "[]"));
 }
 
 export function saveItems(items: Entry[]) {
@@ -37,7 +37,7 @@ export function saveItems(items: Entry[]) {
 }
 
 export function getLastUpdate() {
-  return new Date(parseInt(localStorage.getItem("lastUpdate"), 0) || 0);
+  return new Date(parseInt(localStorage.getItem("lastUpdate") ?? "0", 10));
 }
 
 export function setLastUpdate() {
