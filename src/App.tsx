@@ -12,6 +12,7 @@ interface AppState {
   entries: Entry[];
   lastStats: EntryDiff[];
   roleFilter: string;
+  seasonFilter: string;
   overlay: boolean;
 }
 
@@ -23,6 +24,7 @@ export default class App extends Component<Record<string, never>, AppState> {
     this.state = {
       entries,
       roleFilter: "All",
+      seasonFilter: "All",
       lastStats: this.updateStats(entries, "All"),
       overlay: false
     };
@@ -32,6 +34,10 @@ export default class App extends Component<Record<string, never>, AppState> {
     console.log(entry, modified);
     this.applyEntries(s => s.entries.map(i => i == entry ? {...entry, ...modified} : i));
   };
+
+  setSeasonFilter = (season : string) => {
+    this.setState({seasonFilter: season});
+  }
 
   addItem = (item: Entry) => {
     this.applyEntries(s => [...s.entries, item]);
@@ -140,7 +146,7 @@ export default class App extends Component<Record<string, never>, AppState> {
         <input id="importUpload" type="file" accept=".txt,.json" multiple={false} onChange={this.importFromFile} />
       </div>
       <div className="mainLeft">
-        <EntryTable items={this.state.entries} callback={this.callback} addItem={this.addItem} deleteItem={this.deleteItem} />
+        <EntryTable items={this.state.entries} seasonFilter={this.state.seasonFilter} setSeasonFilter={this.setSeasonFilter} callback={this.callback} addItem={this.addItem} deleteItem={this.deleteItem} />
       </div>
       <div className="footer">
         <Button onClick={() => this.addRow()} intent={Intent.SUCCESS}>New entry</Button>
@@ -159,8 +165,7 @@ export default class App extends Component<Record<string, never>, AppState> {
       </div>
       <div className="mainMid">
         <LastStats lastStats={this.state.lastStats} updateStats={this.onStatRoleChange} />
-        <SeasonStats entries={this.state.entries} season={0} />
-        <SeasonStats entries={this.state.entries} season={lastSeason} />
+        <SeasonStats entries={this.state.entries} season={this.state.seasonFilter === "All" ? 0 : parseInt(this.state.seasonFilter.substring(1))} />
       </div>
       <div className="mainRight">
         <Graphs items={this.state.entries} />

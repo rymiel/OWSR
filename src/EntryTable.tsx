@@ -7,35 +7,37 @@ import { Entry, Role, ROLES } from "./types";
 
 type AppCallback = (entry: Entry, modified: Partial<Entry>) => void;
 type ItemCallback = (entry: Entry) => void;
+type SeasonFilterCallback = (season: string) => void;
 interface EntryTableProps {
   callback: AppCallback;
   addItem: ItemCallback;
   deleteItem: ItemCallback;
+  seasonFilter: string;
+  setSeasonFilter: SeasonFilterCallback;
   items: Entry[];
 }
 
 interface EntryTableState {
   filterRole: string;
-  filterSeason: string;
 }
 
 export default class EntryTable extends Component<EntryTableProps, EntryTableState> {
   constructor(props: EntryTableProps) {
     super(props);
-    this.state = {filterRole: "All", filterSeason: "All"};
+    this.state = {filterRole: "All"};
   }
 
   changeFilterRole = (event: ChangeEvent<HTMLSelectElement>) => {
     this.setState({filterRole: event.currentTarget.value});
   }
   changeFilterSeason = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({filterSeason: event.currentTarget.value});
+    this.props.setSeasonFilter(event.currentTarget.value);
   }
 
   render() {
     let items = this.props.items;
     if (this.state.filterRole !== "All") items = items.filter(item => item.role == this.state.filterRole);
-    if (this.state.filterSeason !== "All") items = items.filter(item => `S${item.season}` == this.state.filterSeason);
+    if (this.props.seasonFilter !== "All") items = items.filter(item => `S${item.season}` == this.props.seasonFilter);
 
     return <div id="entries">
       Filter by Role: <HTMLSelect options={["All", ...ROLES]} onChange={this.changeFilterRole}></HTMLSelect>
