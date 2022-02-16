@@ -1,7 +1,7 @@
-import { H2, HTMLSelect, HTMLTable } from "@blueprintjs/core";
+import { H2, HTMLTable } from "@blueprintjs/core";
 import { ChangeEvent, Component } from "react";
 import { CtxWLD, RoleIcon } from "./Utils";
-import { EntryDiff, ROLES } from "./types";
+import { EntryDiff } from "./types";
 
 interface LastStatsProps {
   lastStats: EntryDiff[];
