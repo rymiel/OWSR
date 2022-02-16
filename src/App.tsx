@@ -4,6 +4,7 @@ import EntryTable from "./EntryTable";
 import Graphs from "./Graphs";
 import LastStats from "./LastStats";
 import { getLastUpdate, loadFromLocalStorage, loadFromString, saveItems } from "./localStorage";
+import SeasonStats from "./SeasonStats";
 import { DEFAULT_ENTRY, Entry, EntryDiff, WLD } from "./types";
 import { download, last } from "./utils";
 
@@ -133,6 +134,7 @@ export default class App extends Component<Record<string, never>, AppState> {
   }
 
   render() {
+    const lastSeason = this.state.entries.reduce((i, j) => i.season > j.season ? i : j).season;
     return <div id="main">
       <div id="hidden">
         <input id="importUpload" type="file" accept=".txt,.json" multiple={false} onChange={this.importFromFile} />
@@ -157,6 +159,8 @@ export default class App extends Component<Record<string, never>, AppState> {
       </div>
       <div className="mainMid">
         <LastStats lastStats={this.state.lastStats} updateStats={this.onStatRoleChange} />
+        <SeasonStats entries={this.state.entries} season={0} />
+        <SeasonStats entries={this.state.entries} season={lastSeason} />
       </div>
       <div className="mainRight">
         <Graphs items={this.state.entries} />
