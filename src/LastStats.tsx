@@ -1,11 +1,10 @@
 import { H2, HTMLTable } from "@blueprintjs/core";
-import { ChangeEvent, Component } from "react";
+import { Component } from "react";
 import { CtxWLD, RoleIcon } from "./Utils";
 import { EntryDiff } from "./types";
 
 interface LastStatsProps {
   lastStats: EntryDiff[];
-  updateStats: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default class LastStats extends Component<LastStatsProps, Record<string, never>> {

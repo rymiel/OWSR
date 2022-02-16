@@ -159,7 +159,7 @@ export default class App extends Component<Record<string, never>, AppState> {
       </div>
       <div className="footer">
         Filter by Role: <HTMLSelect options={["All", ...ROLES]} onChange={this.onStatRoleChange}></HTMLSelect>
-        Season: <HTMLSelect options={["All", ...new Set(this.state.entries.map(i => `S${i.season}`))]} onChange={this.onStatRoleChange}></HTMLSelect>
+        Season: <HTMLSelect options={["All", ...new Set(this.state.entries.map(i => `S${i.season}`))]} onChange={this.onStatSeasonChange}></HTMLSelect>
         <Button onClick={() => this.addRow()} intent={Intent.SUCCESS}>New entry</Button>
         <Button onClick={() => document.getElementById("importUpload")!.click()} intent={Intent.PRIMARY}>Import</Button>
         <Button onClick={() => download(JSON.stringify(this.state.entries), "entries.json", "application/json")} intent={Intent.PRIMARY}>Export</Button>
@@ -175,7 +175,7 @@ export default class App extends Component<Record<string, never>, AppState> {
         </div>
       </div>
       <div className="mainMid">
-        <LastStats lastStats={this.state.lastStats} updateStats={this.onStatRoleChange} />
+        <LastStats lastStats={this.state.lastStats} />
         <SeasonStats entries={this.state.entries} season={this.state.seasonFilter === "All" ? 0 : parseInt(this.state.seasonFilter.substring(1))} />
       </div>
       <div className="mainRight">
