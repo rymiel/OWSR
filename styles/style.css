@@ -34,21 +34,21 @@ body {
   padding: 6px 11px;
 }
 
-#stats .table table {
+.stats .table table {
   margin-top: 20px;
   border: none;
   font-size: 18px;
   vertical-align: middle;
 }
 
-#stats .table table td {
+.stats .table table td {
   border-left: none;
   border-right: none;
   border-bottom: none;
   padding: 7px;
 }
 
-#stats, #info {
+.stats, #info {
   margin-left: 50px;
   margin-top: 20px;
 }
