@@ -41,10 +41,11 @@ body {
 }
 
 .footer {
-    grid-area: footer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  padding-left: 1em;
+  grid-area: footer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .footer > * {

@@ -16,8 +16,6 @@ export default class LastStats extends Component<LastStatsProps, Record<string, 
   render() {
     return <div className="stats">
       <H2>Last 10 Games</H2>
-      <span>Role</span>
-      <HTMLSelect options={["All", ...ROLES]} onChange={this.props.updateStats}></HTMLSelect>
       <div className="table">
         <HTMLTable>
           <tbody>

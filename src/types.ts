@@ -1,4 +1,4 @@
-export const ROLES = ["Support", "Tank", "DPS", "Open"] as const;
+export const ROLES = ["Tank", "DPS", "Support", "Open"] as const;
 export type Role = typeof ROLES[number];
 export type Teamsize = 1 | 2 | 3 | 4 | 5 | 6;
 export const WLDOptions = ["W", "L", "D", "*"] as const;

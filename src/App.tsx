@@ -1,11 +1,11 @@
-import { Button, Classes, Dialog, Intent } from "@blueprintjs/core";
+import { Button, Classes, Dialog, HTMLSelect, Intent } from "@blueprintjs/core";
 import { ChangeEvent, Component } from "react";
 import EntryTable from "./EntryTable";
 import Graphs from "./Graphs";
 import LastStats from "./LastStats";
 import { getLastUpdate, loadFromLocalStorage, loadFromString, saveItems } from "./localStorage";
 import SeasonStats from "./SeasonStats";
-import { DEFAULT_ENTRY, Entry, EntryDiff, WLD } from "./types";
+import { DEFAULT_ENTRY, Entry, EntryDiff, ROLES, WLD } from "./types";
 import { download, last } from "./utils";
 
 interface AppState {
@@ -37,6 +37,10 @@ export default class App extends Component<Record<string, never>, AppState> {
 
   setSeasonFilter = (season : string) => {
     this.setState({seasonFilter: season});
+  }
+
+  setRoleFilter = (role : string) => {
+    this.setState(s => ({roleFilter: role, lastStats: this.updateStats(s.entries, role)}));
   }
 
   addItem = (item: Entry) => {
@@ -100,9 +104,14 @@ export default class App extends Component<Record<string, never>, AppState> {
     // table.closest("div").scrollTop = table.closest("div").scrollHeight;
   }
 
+  onStatSeasonChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const season = event.currentTarget.value;
+    this.setSeasonFilter(season);
+  }
+
   onStatRoleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const role = event.currentTarget.value;
-    this.setState(s => ({lastStats: this.updateStats(s.entries, role)}));
+    this.setRoleFilter(role);
   }
 
   updateStats = (items: Entry[], role: string) => {
@@ -140,15 +149,17 @@ export default class App extends Component<Record<string, never>, AppState> {
   }
 
   render() {
-    const lastSeason = this.state.entries.reduce((i, j) => i.season > j.season ? i : j).season;
     return <div id="main">
       <div id="hidden">
         <input id="importUpload" type="file" accept=".txt,.json" multiple={false} onChange={this.importFromFile} />
       </div>
       <div className="mainLeft">
-        <EntryTable items={this.state.entries} seasonFilter={this.state.seasonFilter} setSeasonFilter={this.setSeasonFilter} callback={this.callback} addItem={this.addItem} deleteItem={this.deleteItem} />
+        <EntryTable items={this.state.entries} roleFilter={this.state.roleFilter} seasonFilter={this.state.seasonFilter}
+          callback={this.callback} addItem={this.addItem} deleteItem={this.deleteItem} />
       </div>
       <div className="footer">
+        Filter by Role: <HTMLSelect options={["All", ...ROLES]} onChange={this.onStatRoleChange}></HTMLSelect>
+        Season: <HTMLSelect options={["All", ...new Set(this.state.entries.map(i => `S${i.season}`))]} onChange={this.onStatRoleChange}></HTMLSelect>
         <Button onClick={() => this.addRow()} intent={Intent.SUCCESS}>New entry</Button>
         <Button onClick={() => document.getElementById("importUpload")!.click()} intent={Intent.PRIMARY}>Import</Button>
         <Button onClick={() => download(JSON.stringify(this.state.entries), "entries.json", "application/json")} intent={Intent.PRIMARY}>Export</Button>
